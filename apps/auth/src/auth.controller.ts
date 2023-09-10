@@ -1,12 +1,32 @@
-import { Controller, Get } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { LocalAuthGuard } from './guards';
+import { CurrentUser } from './decorators';
+import { UserDocument } from './users/models';
+import { Response } from 'express';
 
-@Controller()
+@Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get()
-  getHello(): string {
-    return this.authService.getHello();
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  async login(
+    @CurrentUser() user: UserDocument,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    return this.authService.login(user, response);
+
+    response.send(user);
   }
 }
