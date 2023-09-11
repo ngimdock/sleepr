@@ -19,6 +19,10 @@ export class UsersService {
     return this.usersRepository.findOne({ email });
   }
 
+  async findOneById(id: string) {
+    return this.usersRepository.findOne({ id });
+  }
+
   async validateUser(email: string, password: string) {
     const user = await this.findOneByEmail(email);
 

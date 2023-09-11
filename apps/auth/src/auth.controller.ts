@@ -1,7 +1,5 @@
 import {
-  Body,
   Controller,
-  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -25,7 +23,7 @@ export class AuthController {
     @CurrentUser() user: UserDocument,
     @Res({ passthrough: true }) response: Response,
   ) {
-    return this.authService.login(user, response);
+    this.authService.login(user, response);
 
     response.send(user);
   }
