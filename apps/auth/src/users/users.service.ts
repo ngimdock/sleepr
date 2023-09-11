@@ -6,9 +6,9 @@ import * as bcrypt from 'bcryptjs';
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
   async create(dto: CreateUserDto) {
-    // const hash = await bcrypt.hash(dto.password, 10);
+    const hash = await bcrypt.hash(dto.password, 10);
 
-    return this.usersRepository.create({ ...dto });
+    return this.usersRepository.create({ ...dto, password: hash });
   }
 
   async findAll() {
@@ -26,13 +26,17 @@ export class UsersService {
   async validateUser(email: string, password: string) {
     const user = await this.findOneByEmail(email);
 
-    // const passwordIsValid = await bcrypt.compare(password, user.password);
+    const passwordIsValid = await bcrypt.compare(password, user.password);
 
-    const passwordIsValid = password === user.password;
+    // const passwordIsValid = password === user.password;
 
     if (!passwordIsValid)
       throw new UnauthorizedException('Invalid credentials.');
 
     return user;
+  }
+
+  async delete(id: string) {
+    return this.usersRepository.findOneAndDelete({ id });
   }
 }

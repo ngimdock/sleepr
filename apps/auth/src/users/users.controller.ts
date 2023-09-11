@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto';
 import { UsersService } from './users.service';
 import { CurrentUser } from '../decorators';
@@ -23,5 +32,10 @@ export class UsersController {
   @Get()
   async findAll() {
     return this.userService.findAll();
+  }
+
+  @Delete(':id')
+  delete(@Param('id', ParseUUIDPipe) userId: string) {
+    return this.userService.delete(userId);
   }
 }
