@@ -10,9 +10,8 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dto';
 import { UsersService } from './users.service';
-import { CurrentUser } from '../decorators';
-import { UserDocument } from './models';
 import { JwtAuthGuard } from '../guards';
+import { CurrentUser, UserInterface } from '@app/common';
 
 @Controller('users')
 export class UsersController {
@@ -20,7 +19,7 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get('me')
-  findMe(@CurrentUser() user: UserDocument) {
+  findMe(@CurrentUser() user: UserInterface) {
     return user;
   }
 
