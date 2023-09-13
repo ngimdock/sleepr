@@ -22,6 +22,7 @@ export class ReservationsService {
 
           const reservation = await this.reservationRepository.create({
             ...createReservationDto,
+            invoceId: paymentResponse.id,
             timestamp: new Date(),
             userId,
           });
