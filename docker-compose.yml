@@ -10,6 +10,7 @@ services:
     depends_on:
       - mongo
       - auth
+      - payments
     ports:
       - '3000:3000'
     volumes:
@@ -27,6 +28,22 @@ services:
       - mongo
     ports:
       - '3001:3001'
+    volumes:
+      - .:/usr/src/app
+
+  payments:
+    build:
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: development
+    command: pnpm run start:dev payments
+    env_file:
+      - ./apps/payments/.env
+    depends_on:
+      - mongo
+      - auth
+    ports:
+      - '3003:3003'
     volumes:
       - .:/usr/src/app
 
