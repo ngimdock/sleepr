@@ -3,7 +3,6 @@ import {
   IsNotEmpty,
   IsNumber,
   IsString,
-  Length,
   Max,
   Min,
 } from 'class-validator';
@@ -25,6 +24,5 @@ export class CardDto {
 
   @IsCreditCard()
   @IsNotEmpty()
-  @Length(16, 16)
   number: string;
 }
