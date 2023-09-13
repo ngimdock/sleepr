@@ -28,6 +28,7 @@ export class UsersController {
     return this.userService.create(createUserDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll() {
     return this.userService.findAll();
