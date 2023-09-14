@@ -42,8 +42,20 @@ services:
     depends_on:
       - mongo
       - auth
-    ports:
-      - '3003:3003'
+    volumes:
+      - .:/usr/src/app
+
+  notifications:
+    build:
+      context: .
+      dockerfile: ./apps/notifications/Dockerfile
+      target: development
+    command: pnpm run start:dev notifications
+    env_file:
+      - ./apps/notifications/.env
+    depends_on:
+      - mongo
+      - auth
     volumes:
       - .:/usr/src/app
 

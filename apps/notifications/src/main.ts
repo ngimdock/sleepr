@@ -1,16 +1,17 @@
 import { NestFactory } from '@nestjs/core';
-import { PaymentsModule } from './payments.module';
-import { TcpOptions, Transport } from '@nestjs/microservices';
+import { NotificationsModule } from './notifications.module';
+import { Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
-  const app = await NestFactory.create(PaymentsModule);
+  const app = await NestFactory.create(NotificationsModule);
+
   const configService = app.get(ConfigService);
 
   app.useLogger(app.get(Logger));
 
-  app.connectMicroservice<TcpOptions>({
+  app.connectMicroservice({
     transport: Transport.TCP,
     options: {
       host: '0.0.0.0',
@@ -18,7 +19,7 @@ async function bootstrap() {
     },
   });
 
-  await app.startAllMicroservices();
+  app.startAllMicroservices();
 }
 
 bootstrap();
