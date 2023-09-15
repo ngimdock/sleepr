@@ -33,7 +33,12 @@ export class PaymentsService {
       },
     });
 
-    this.notificationService.emit('notify_email', { email: user.email });
+    this.notificationService.emit('notify_email', {
+      email: user.email,
+      message: `Your payment of ${amout}$ has been confirmed for ${this.configService.get(
+        'COMPANY_NAME',
+      )}`,
+    });
 
     return paymentIntent;
   }
