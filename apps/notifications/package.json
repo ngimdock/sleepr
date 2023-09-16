@@ -1,0 +1,19 @@
+{
+  "name": "@sleepr/notifications",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mailgen": "^2.0.27",
+    "nodemailer": "^6.9.5"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.10"
+  }
+}
