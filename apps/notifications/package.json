@@ -8,12 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "mailgen": "^2.0.27",
-    "nodemailer": "^6.9.5"
-  },
-  "devDependencies": {
-    "@types/nodemailer": "^6.4.10"
-  }
+  "license": "ISC"
 }
