@@ -17,3 +17,15 @@ spec:
       containers:
         - image: europe-west9-docker.pkg.dev/sleepr-399208/payments/production
           name: payments
+          env:
+            - name: PORT
+              value: '3003'
+            - name: NOTIFICATIONS_HOST
+              value: notifications
+            - name: NOTIFICATIONS_PORT
+              value: '3004'
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe
+                  key: secretKey
