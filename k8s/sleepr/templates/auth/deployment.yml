@@ -34,3 +34,6 @@ spec:
                 secretKeyRef:
                   name: mongodb
                   key: connectionUrl
+          ports:
+            - containerPort: 3001
+            - containerPort: 3002

@@ -17,8 +17,6 @@ spec:
       containers:
         - image: europe-west9-docker.pkg.dev/sleepr-399208/notifications/production
           name: notifications
-          ports:
-            - containerPort: 3004
           env:
             - name: PORT
               value: '3004'
@@ -33,3 +31,5 @@ spec:
                 secretKeyRef:
                   name: gmail-smtp
                   key: password
+          ports:
+            - containerPort: 3004

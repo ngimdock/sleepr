@@ -33,3 +33,5 @@ spec:
                 secretKeyRef:
                   name: mongodb
                   key: connectionUrl
+          ports:
+            - containerPort: 3000
