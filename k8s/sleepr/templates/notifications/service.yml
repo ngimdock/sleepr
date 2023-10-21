@@ -6,7 +6,7 @@ metadata:
   name: notifications
 spec:
   ports:
-    - name: '3004'
+    - name: 'tcp'
       port: 3004
       protocol: TCP
       targetPort: 3004

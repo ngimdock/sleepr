@@ -3,14 +3,10 @@ kind: Service
 metadata:
   labels:
     app: auth
-  name: auth
+  name: auth-tcp
 spec:
   ports:
-    - name: '3001'
-      port: 3001
-      protocol: TCP
-      targetPort: 3001
-    - name: '3002'
+    - name: 'tcp'
       port: 3002
       protocol: TCP
       targetPort: 3002
