@@ -18,8 +18,19 @@ spec:
         - image: 265989594936.dkr.ecr.eu-west-1.amazonaws.com/auth:latest
           name: auth
           env:
-            - name: MONGODB_URI
+            - name: HTTP_PORT
+              value: '3001'
+            - name: TCP_PORT
+              value: '3002'
+            - name: JWT_EXPIRATION_TIME
+              value: '3600'
+            - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: mongodb
-                  key: connectionUrl
+                  name: jwt
+                  key: secret
+            - name: MONGODB_URI
+              value: mongodb+srv://zemfack:dDo5kIJf92HJ0y7a@sleepr.cjtx3vv.mongodb.net
+          ports:
+            - containerPort: 3001
+            - containerPort: 3002

@@ -18,8 +18,20 @@ spec:
         - image: 265989594936.dkr.ecr.eu-west-1.amazonaws.com/reservations:latest
           name: reservations
           env:
+            - name: PORT
+              value: '3000'
+            - name: AUTH_HOST
+              value: auth
+            - name: AUTH_PORT
+              value: '3002'
+            - name: PAYMENTS_HOST
+              value: payments
+            - name: PAYMENTS_PORT
+              value: '3003'
             - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:
                   name: mongodb
                   key: connectionUrl
+          ports:
+            - containerPort: 3000
