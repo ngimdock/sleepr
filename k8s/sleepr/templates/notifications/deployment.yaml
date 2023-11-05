@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: notifications
+  name: notifications
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notifications
+  template:
+    metadata:
+      labels:
+        app: notifications
+    spec:
+      containers:
+        - image: 265989594936.dkr.ecr.eu-west-1.amazonaws.com/notifications:latest
+          name: notifications
+          env:
+            - name: PORT
+              value: '3004'
+            - name: CLIENT_APP_HOST
+              value: https://ngimdock-zemfack.vercel.app/
+            - name: COMPANY_NAME
+              value: Sleepr
+            - name: GMAIL_SMTP_USER
+              value: ngimdockzemfack@gmail.com
+            - name: GMAIL_SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gmail-smtp
+                  key: password
+          ports:
+            - containerPort: 3004

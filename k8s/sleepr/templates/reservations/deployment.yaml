@@ -17,3 +17,9 @@ spec:
       containers:
         - image: 265989594936.dkr.ecr.eu-west-1.amazonaws.com/reservations:latest
           name: reservations
+          env:
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb
+                  key: connectionUrl
