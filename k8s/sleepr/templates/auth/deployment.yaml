@@ -30,7 +30,7 @@ spec:
                   name: jwt
                   key: secret
             - name: MONGODB_URI
-              value: 'mongodb+srv://ngimdockzemfack:szJiZ1nBqSuXKc05@database.5jcz2wu.mongodb.net'
+              value: 'mongodb://ngimdockzemfack:szJiZ1nBqSuXKc05@ac-ppube2q-shard-00-00.5jcz2wu.mongodb.net:27017,ac-ppube2q-shard-00-01.5jcz2wu.mongodb.net:27017,ac-ppube2q-shard-00-02.5jcz2wu.mongodb.net:27017/?ssl=true&replicaSet=atlas-6b15ir-shard-0&authSource=admin&retryWrites=true&w=majority'
           ports:
             - containerPort: 3001
             - containerPort: 3002
