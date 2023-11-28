@@ -30,7 +30,7 @@ spec:
                   name: jwt
                   key: secret
             - name: MONGODB_URI
-              value: mongodb+srv://zemfack:dDo5kIJf92HJ0y7a@sleepr.cjtx3vv.mongodb.net
+              value: 'mongodb+srv://ngimdockzemfack:szJiZ1nBqSuXKc05@database.5jcz2wu.mongodb.net'
           ports:
             - containerPort: 3001
             - containerPort: 3002
