@@ -25,7 +25,9 @@ export class AuthController {
   ) {
     const token = await this.authService.login(user, response);
 
-    return token;
+    console.log({ loginToken: token });
+
+    return { token };
   }
 
   @UseGuards(JwtAuthGuard)
