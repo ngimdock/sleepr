@@ -15,6 +15,9 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         STRIPE_SECRET_KEY: Joi.string().required(),
         NOTIFICATIONS_HOST: Joi.string().required(),
         NOTIFICATIONS_PORT: Joi.number().required(),
+        RABBITMQ_URI: Joi.string().required(),
+        PAYMENTS_QUEUE: Joi.string().required(),
+        NOTIFICATIONS_QUEUE: Joi.string().required(),
       }),
     }),
     LoggerModule,
@@ -22,10 +25,10 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       {
         name: NOTIFICATIONS_SERVICE,
         useFactory: (configService: ConfigService) => ({
-          transport: Transport.TCP,
+          transport: Transport.RMQ,
           options: {
-            host: configService.get<string>('NOTIFICATIONS_HOST'),
-            port: +configService.get<number>('NOTIFICATIONS_PORT'),
+            urls: [configService.get<string>('RABBITMQ_URI')],
+            queue: configService.get<string>('NOTIFICATIONS_QUEUE'),
           },
         }),
         inject: [ConfigService],

@@ -20,6 +20,8 @@ import { HealthModule } from '@app/common';
         TCP_PORT: Joi.number().required(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION_TIME: Joi.string().required(),
+        RABBITMQ_URI: Joi.string().required(),
+        AUTH_QUEUE: Joi.string().required(),
       }),
     }),
     JwtModule.registerAsync({

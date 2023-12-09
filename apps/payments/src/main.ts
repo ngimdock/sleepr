@@ -1,8 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { PaymentsModule } from './payments.module';
-import { TcpOptions, Transport } from '@nestjs/microservices';
+import { RmqOptions, TcpOptions, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from 'nestjs-pino';
+import { RmOptions } from 'fs';
 
 async function bootstrap() {
   const app = await NestFactory.create(PaymentsModule);
@@ -10,11 +11,11 @@ async function bootstrap() {
 
   app.useLogger(app.get(Logger));
 
-  app.connectMicroservice<TcpOptions>({
-    transport: Transport.TCP,
+  app.connectMicroservice<RmqOptions>({
+    transport: Transport.RMQ,
     options: {
-      host: '0.0.0.0',
-      port: +configService.get<number>('PORT'),
+      urls: [configService.getOrThrow<string>('RABBITMQ_URI')],
+      queue: configService.get<string>('PAYMENTS_QUEUE'),
     },
   });
 

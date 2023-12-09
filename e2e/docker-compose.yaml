@@ -36,3 +36,7 @@ services:
       - '3004:3004'
   mongo:
     image: mongo:5.0
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - 5672:5672

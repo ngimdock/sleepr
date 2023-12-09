@@ -16,6 +16,8 @@ import { TemplatesModule } from './templates/templates.module';
         GMAIL_SMTP_PASSWORD: Joi.string().required(),
         COMPANY_NAME: Joi.string().required(),
         CLIENT_APP_HOST: Joi.string().required(),
+        RABBITMQ_URI: Joi.string().required(),
+        NOTIFICATIONS_QUEUE: Joi.string().required(),
       }),
     }),
     LoggerModule,

@@ -58,6 +58,9 @@ services:
       - auth
     volumes:
       - .:/usr/src/app
-
   mongo:
     image: mongo:5.0
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - 5672:5672
