@@ -21,8 +21,6 @@ export class ReservationsService {
       .send('create_charge', { ...createReservationDto.charge, user })
       .pipe(
         map(async (paymentResponse) => {
-          console.log({ paymentResponse });
-
           const reservation = await this.reservationRepository.create({
             ...createReservationDto,
             invoceId: paymentResponse.id,
