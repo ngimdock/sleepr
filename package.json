@@ -40,6 +40,7 @@
     "nodemailer": "^6.9.5",
     "pino-http": "^8.5.0",
     "pino-pretty": "^10.2.0",
+    "protobufjs": "^7.2.5",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "ts-proto": "^1.165.1"

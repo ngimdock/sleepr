@@ -7,15 +7,19 @@ service PaymentsService {
 }
 
 message CreateChargeMessage {
-  string id = 1;
-  string email = 2;
-  string password = 3;
-  int32 amout = 4;
-  CardMessage Card = 5;
+  UserMessage user = 1;
+  int32 amout = 2;
+  CardMessage Card = 3;
 }
 
 message CreateChargeResponse {
   string id = 1;
+}
+
+message UserMessage {
+  string id = 1;
+  string email = 2;
+  string password = 3;
 }
 
 message CardMessage {

@@ -65,6 +65,9 @@ dependencies:
   pino-pretty:
     specifier: ^10.2.0
     version: 10.2.0
+  protobufjs:
+    specifier: ^7.2.5
+    version: 7.2.5
   reflect-metadata:
     specifier: ^0.1.13
     version: 0.1.13
