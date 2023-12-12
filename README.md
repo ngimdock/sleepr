@@ -17,6 +17,12 @@ docker compose up
 yarn test:e2e
 ```
 
+If modifications have been made and containers have been pushed to AWS, you must first do the following before run the tests
+
+```bash
+cd e2e && docker compose pull
+```
+
 # Run K8S infrastructure
 
 ```bash
