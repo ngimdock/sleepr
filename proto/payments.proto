@@ -9,7 +9,7 @@ service PaymentsService {
 message CreateChargeMessage {
   UserMessage user = 1;
   int32 amout = 2;
-  CardMessage Card = 3;
+  CardMessage card = 3;
 }
 
 message CreateChargeResponse {
@@ -24,7 +24,7 @@ message UserMessage {
 
 message CardMessage {
   string cvc = 1;
-  string expMonth = 2;
-  string expYear = 3;
+  int32 expMonth = 2;
+  int32 expYear = 3;
   int32 number = 4;
 }

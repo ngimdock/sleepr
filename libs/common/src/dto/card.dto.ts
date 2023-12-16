@@ -6,8 +6,9 @@ import {
   Max,
   Min,
 } from 'class-validator';
+import { CardMessage } from '../types';
 
-export class CardDto {
+export class CardDto implements CardMessage {
   @IsString()
   @IsNotEmpty()
   cvc: string;
@@ -16,13 +17,13 @@ export class CardDto {
   @IsNotEmpty()
   @Min(1)
   @Max(12)
-  exp_month: number;
+  expMonth: number;
 
   @IsNumber()
   @IsNotEmpty()
-  exp_year: number;
+  expYear: number;
 
   @IsCreditCard()
   @IsNotEmpty()
-  number: string;
+  number: number;
 }
