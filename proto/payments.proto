@@ -26,5 +26,5 @@ message CardMessage {
   string cvc = 1;
   int32 expMonth = 2;
   int32 expYear = 3;
-  int32 number = 4;
+  string number = 4;
 }

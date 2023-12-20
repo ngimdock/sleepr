@@ -25,5 +25,5 @@ export class CardDto implements CardMessage {
 
   @IsCreditCard()
   @IsNotEmpty()
-  number: number;
+  number: string;
 }
