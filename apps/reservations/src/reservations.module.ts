@@ -19,6 +19,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { ClientsModule, GrpcOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
+import { GraphQLModule } from '@nestjs/graphql';
+import {
+  ApolloFederationDriver,
+  ApolloFederationDriverConfig,
+} from '@nestjs/apollo';
+import { ReservationsResolver } from './reservations.resolver';
 
 @Module({
   imports: [
@@ -29,6 +35,7 @@ import { join } from 'path';
         schema: ReservationSchema,
       },
     ]),
+
     LoggerModule,
     HealthModule,
     ConfigModule.forRoot({
@@ -39,6 +46,12 @@ import { join } from 'path';
         AUTH_GRPC_URL: Joi.string().required(),
         PAYMENTS_GRPC_URL: Joi.string().required(),
       }),
+    }),
+    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+      driver: ApolloFederationDriver,
+      autoSchemaFile: {
+        federation: 2,
+      },
     }),
     ClientsModule.registerAsync([
       {
@@ -68,6 +81,6 @@ import { join } from 'path';
     ]),
   ],
   controllers: [ReservationsController],
-  providers: [ReservationsService, ReservationRepository],
+  providers: [ReservationsResolver, ReservationsService, ReservationRepository],
 })
 export class ReservationsModule {}
