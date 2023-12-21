@@ -1,16 +1,19 @@
-import { NOTIFICATIONS_SERVICE } from '@app/common';
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  NOTIFICATIONS_SERVICE_NAME,
+  NotificationsServiceClient,
+} from '@app/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ClientProxy } from '@nestjs/microservices';
+import { ClientGrpc } from '@nestjs/microservices';
 import Stripe from 'stripe';
 import { PaymentsCreateChargeDto } from './dto';
 
 @Injectable()
 export class PaymentsService {
+  private notificationsService: NotificationsServiceClient;
   constructor(
     private readonly configService: ConfigService,
-    @Inject(NOTIFICATIONS_SERVICE)
-    private readonly notificationService: ClientProxy,
+    @Inject(NOTIFICATIONS_SERVICE_NAME) private readonly client: ClientGrpc,
   ) {}
 
   private readonly stripe = new Stripe(
@@ -33,12 +36,22 @@ export class PaymentsService {
       },
     });
 
-    this.notificationService.emit('notify_email', {
-      email: user.email,
-      message: `Your payment of ${amout}$ has been confirmed for ${this.configService.get(
-        'COMPANY_NAME',
-      )}`,
-    });
+    if (!this.notificationsService) {
+      this.notificationsService =
+        this.client.getService<NotificationsServiceClient>(
+          NOTIFICATIONS_SERVICE_NAME,
+        );
+    }
+
+    this.notificationsService
+      .notifyEmail({
+        email: user.email,
+        message: `Your payment of ${amout}$ has been confirmed for ${this.configService.get(
+          'COMPANY_NAME',
+        )}`,
+      })
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      .subscribe(() => {});
 
     return paymentIntent;
   }
@@ -50,7 +63,12 @@ export class PaymentsService {
   }: PaymentsCreateChargeDto) {
     const paymentMethod = await this.stripe.paymentMethods.create({
       type: 'card',
-      card: card,
+      card: {
+        number: card.number,
+        cvc: card.cvc,
+        exp_month: card.expMonth,
+        exp_year: card.expYear,
+      },
     });
 
     const paymentIntent = await this.stripe.paymentIntents.create({
@@ -61,7 +79,15 @@ export class PaymentsService {
       payment_method_types: ['card'],
     });
 
-    this.notificationService.emit('notify_email', { email: user.email });
+    this.notificationsService
+      .notifyEmail({
+        email: user.email,
+        message: `Your payment of ${amout}$ has been confirmed for ${this.configService.get(
+          'COMPANY_NAME',
+        )}`,
+      })
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      .subscribe(() => {});
 
     return paymentIntent;
   }

@@ -9,11 +9,17 @@ import {
 import { AuthService } from './auth.service';
 import { JwtAuthGuard, LocalAuthGuard } from './guards';
 import { Response } from 'express';
-import { MessagePattern, Payload } from '@nestjs/microservices';
-import { CurrentUser, UserInterface } from '@app/common';
+import { Payload } from '@nestjs/microservices';
+import {
+  AuthServiceController,
+  AuthServiceControllerMethods,
+  CurrentUser,
+  UserInterface,
+} from '@app/common';
 
 @Controller('auth')
-export class AuthController {
+@AuthServiceControllerMethods()
+export class AuthController implements AuthServiceController {
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
@@ -31,7 +37,6 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @MessagePattern('authenticate')
   async authenticate(@Payload() data: any) {
     return data.user;
   }

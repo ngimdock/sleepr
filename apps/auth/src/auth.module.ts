@@ -17,9 +17,9 @@ import { HealthModule } from '@app/common';
       validationSchema: Joi.object({
         MONGODB_URI: Joi.string().required(),
         HTTP_PORT: Joi.number().required(),
-        TCP_PORT: Joi.number().required(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION_TIME: Joi.string().required(),
+        AUTH_GRPC_URL: Joi.string().required(),
       }),
     }),
     JwtModule.registerAsync({

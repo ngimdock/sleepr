@@ -1,8 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { NotificationsModule } from './notifications.module';
-import { Transport } from '@nestjs/microservices';
+import { GrpcOptions, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from 'nestjs-pino';
+import { join } from 'path';
+import { NOTIFICATIONS_PACKAGE_NAME } from '@app/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(NotificationsModule);
@@ -11,11 +13,12 @@ async function bootstrap() {
 
   app.useLogger(app.get(Logger));
 
-  app.connectMicroservice({
-    transport: Transport.TCP,
+  app.connectMicroservice<GrpcOptions>({
+    transport: Transport.GRPC,
     options: {
-      host: '0.0.0.0',
-      port: +configService.get<number>('PORT'),
+      package: NOTIFICATIONS_PACKAGE_NAME,
+      protoPath: join(__dirname, '../../../proto/notifications.proto'),
+      url: configService.getOrThrow('NOTIFICATIONS_GRPC_URL'),
     },
   });
 
