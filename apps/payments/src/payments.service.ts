@@ -2,7 +2,7 @@ import {
   NOTIFICATIONS_SERVICE_NAME,
   NotificationsServiceClient,
 } from '@app/common';
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ClientGrpc } from '@nestjs/microservices';
 import Stripe from 'stripe';
