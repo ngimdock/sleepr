@@ -20,6 +20,7 @@ import { authContext } from './auth.context';
       validationSchema: Joi.object({
         PORT: Joi.number().required(),
         RESERVATIONS_GRAPHQL_URL: Joi.string().required(),
+        AUTH_GRAPHQL_URL: Joi.string().required(),
         AUTH_GRPC_URL: Joi.string().required(),
       }),
     }),
@@ -36,6 +37,10 @@ import { authContext } from './auth.context';
               {
                 name: 'reservations',
                 url: configService.getOrThrow('RESERVATIONS_GRAPHQL_URL'),
+              },
+              {
+                name: 'auth',
+                url: configService.getOrThrow('AUTH_GRAPHQL_URL'),
               },
             ],
           }),
