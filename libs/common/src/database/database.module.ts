@@ -8,8 +8,6 @@ import { ModelDefinition, MongooseModule } from '@nestjs/mongoose';
       useFactory: async (configService: ConfigService) => {
         const MONGODB_URI = configService.get<string>('MONGODB_URI');
 
-        console.log({ MONGODB_URI });
-
         return {
           uri: MONGODB_URI,
         };

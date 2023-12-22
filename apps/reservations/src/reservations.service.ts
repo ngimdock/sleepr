@@ -19,7 +19,6 @@ export class ReservationsService implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    console.log({ reservation: 'Module INIT OK 2' });
     this.paymentsService = this.client.getService<PaymentsServiceClient>(
       PAYMENTS_SERVICE_NAME,
     );

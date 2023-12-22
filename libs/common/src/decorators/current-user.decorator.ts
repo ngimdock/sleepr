@@ -6,7 +6,9 @@ export const CurrentUser = createParamDecorator(
 );
 
 const getCurrentUserByContext = (ctx: ExecutionContext): UserInterface => {
-  const request = ctx.switchToHttp().getRequest();
+  if (ctx.getType() === 'http') return ctx.switchToHttp().getRequest().user;
 
-  return request.user;
+  const user = ctx.getArgs()[2].req.headers?.user;
+
+  if (user) return JSON.parse(user);
 };

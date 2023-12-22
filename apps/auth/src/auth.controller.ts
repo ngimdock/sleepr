@@ -31,8 +31,6 @@ export class AuthController implements AuthServiceController {
   ) {
     const token = await this.authService.login(user, response);
 
-    console.log({ loginToken: token });
-
     return { token };
   }
 
