@@ -22,6 +22,8 @@ async function bootstrap() {
   });
 
   await app.startAllMicroservices();
+
+  await app.listen(+configService.getOrThrow<number>('HTTP_PORT'));
 }
 
 bootstrap();

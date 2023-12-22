@@ -22,6 +22,7 @@ import { authContext } from './auth.context';
         RESERVATIONS_GRAPHQL_URL: Joi.string().required(),
         AUTH_GRAPHQL_URL: Joi.string().required(),
         AUTH_GRPC_URL: Joi.string().required(),
+        PAYMENTS_GRAPHQL_URL: Joi.string().required(),
       }),
     }),
     LoggerModule,
@@ -41,6 +42,10 @@ import { authContext } from './auth.context';
               {
                 name: 'auth',
                 url: configService.getOrThrow('AUTH_GRAPHQL_URL'),
+              },
+              {
+                name: 'payments',
+                url: configService.getOrThrow('PAYMENTS_GRAPHQL_URL'),
               },
             ],
           }),

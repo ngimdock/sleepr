@@ -21,6 +21,12 @@ export class PaymentsService {
     { apiVersion: '2023-08-16' },
   );
 
+  async findAllPayments() {
+    const payments = await this.stripe.paymentIntents.list();
+
+    return payments.data;
+  }
+
   async createChargeWithTestCreditCard({
     amout,
     user,
